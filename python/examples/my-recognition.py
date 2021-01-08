@@ -22,6 +22,7 @@
 #
 
 import jetson.inference
+#python wrapper 
 import jetson.utils
 
 import argparse
@@ -34,6 +35,7 @@ parser.add_argument("--network", type=str, default="googlenet", help="model to u
 opt = parser.parse_args()
 
 # load an image (into shared CPU/GPU memory)
+# memory is directly loaded to GPU
 img = jetson.utils.loadImage(opt.filename)
 
 # load the recognition network
@@ -42,7 +44,7 @@ net = jetson.inference.imageNet(opt.network)
 # classify the image
 class_idx, confidence = net.Classify(img)
 
-# find the object description
+# find the object description 
 class_desc = net.GetClassDesc(class_idx)
 
 # print out the result
